@@ -3,3 +3,8 @@ spring:
     url: jdbc:mysql://<db-server>:<db-port>/<db-name>
     username: <db-user>
     password: <db-pw>
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

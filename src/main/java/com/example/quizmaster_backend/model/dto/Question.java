@@ -1,6 +1,5 @@
 package com.example.quizmaster_backend.model.dto;
 
-import com.example.quizmaster_backend.model.dto.response.PossibleAnswerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +8,6 @@ import org.springframework.core.style.ToStringCreator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "question")
@@ -27,6 +24,9 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    private String questionText;
 
     @NotNull
     private String correctAnswer;
@@ -52,10 +52,11 @@ public class Question {
 
         ToStringCreator tsc = new ToStringCreator(this);
         tsc.append("id", id)
-                .append("correctAnswer", correctAnswer.toString())
-                .append("wrongAnswer1", wrongAnswer1.toString())
-                .append("wrongAnswer2", wrongAnswer2.toString())
-                .append("wrongAnswer3", wrongAnswer3.toString());
+                .append("questionText", questionText)
+                .append("correctAnswer", correctAnswer)
+                .append("wrongAnswer1", wrongAnswer1)
+                .append("wrongAnswer2", wrongAnswer2)
+                .append("wrongAnswer3", wrongAnswer3);
 
         return tsc.toString();
     }

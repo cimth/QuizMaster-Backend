@@ -29,6 +29,9 @@ public class QuestionDto {
     private Long id;
 
     @NotNull
+    private String questionText;
+
+    @NotNull
     @Size(min = 4, max = 4)
     private PossibleAnswerDto[] possibleAnswers;
 
@@ -47,6 +50,7 @@ public class QuestionDto {
 
         ToStringCreator tsc = new ToStringCreator(this);
         tsc.append("id", id)
+            .append("questionText", questionText)
             .append("possibleAnswers", Arrays.toString(possibleAnswers))
             .append("correctAnswer", correctAnswer.toString());
 
