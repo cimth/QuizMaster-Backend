@@ -1,0 +1,140 @@
+package com.example.quizmaster_backend.service;
+
+import com.example.quizmaster_backend.exception.DataNotFoundException;
+import com.example.quizmaster_backend.model.dto.AnswerLetter;
+import com.example.quizmaster_backend.model.dto.Question;
+import com.example.quizmaster_backend.model.dto.response.PossibleAnswerDto;
+import com.example.quizmaster_backend.model.dto.response.QuestionDto;
+import com.example.quizmaster_backend.repository.QuestionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+@Service
+public class QuestionService {
+
+    /*======================================*
+     * FIELDS
+     *======================================*/
+
+    private final QuestionRepository questionRepository;
+    private final MessageSource messageSource;
+
+    /*======================================*
+     * CONSTRUCTOR
+     *======================================*/
+
+    /**
+     * Creates a service for handling the business logic for questions like creating new questions or deleting them.
+     *
+     * @param questionRepository the data repository for questions
+     * @param messageSource a message source for localized strings from resources
+     */
+    @Autowired
+    public QuestionService(QuestionRepository questionRepository, MessageSource messageSource) {
+        this.questionRepository = questionRepository;
+        this.messageSource = messageSource;
+    }
+
+    /*======================================*
+     * READ
+     *======================================*/
+
+    /**
+     * Returns the QuestionDto for the question with the given ID.
+     * <br />
+     * If the question does not exist, a {@link DataNotFoundException} will be thrown.
+     *
+     * @param id the id of the requested question
+     * @param locale the locale of the user
+     * @return the requested question as DTO for the user if the request is valid
+     */
+    public QuestionDto findQuestionById(Long id, Locale locale) {
+
+        // get question
+        Optional<Question> question = questionRepository.findById(id);
+
+        // throw exception if no question with the specified id was found
+        if (question.isEmpty()) {
+            throw new DataNotFoundException(messageSource.getMessage("QuestionService.NotFound", null, locale));
+        }
+
+        // create and return dto for user
+        String questionText = question.get().getQuestionText();
+        PossibleAnswerDto[] possibleAnswers = createPossibleAnswers(question.get());
+        AnswerLetter correctAnswer = getCorrectAnswer(possibleAnswers, question.get().getCorrectAnswer());
+
+        return new QuestionDto(id, questionText, possibleAnswers, correctAnswer);
+    }
+
+    /**
+     * Creates an array with four [answer letter, answer text] elements for each AnswerLetter A, B, C, D and each
+     * possible answer of the given question. Thus, the returned array can directly be used by the frontend for
+     * populating the answers view without needing to shuffle the answers etc.
+     *
+     * @param question the question for which the answer array should be created
+     * @return the array as described above
+     */
+    private PossibleAnswerDto[] createPossibleAnswers(Question question) {
+
+        // array to be returned
+        PossibleAnswerDto[] possibleAnswers = new PossibleAnswerDto[4];
+
+        // create list of 0, 1, 2, 3 and shuffle it
+        List<Integer> shuffledIndices = new ArrayList<>(4);
+        shuffledIndices.add(0);
+        shuffledIndices.add(1);
+        shuffledIndices.add(2);
+        shuffledIndices.add(3);
+        Collections.shuffle(shuffledIndices);
+
+        // shuffle answers with help of the shuffled list
+        for (int i = 0; i < 4; i++) {
+
+            // get A, B, C, D in correct order
+            AnswerLetter answerLetter = AnswerLetter.values()[i];
+
+            // get random answer
+            int randomIndex = shuffledIndices.remove(0);
+            String answer = "";
+            switch (randomIndex) {
+                case 0:
+                    answer = question.getCorrectAnswer();
+                    break;
+                case 1:
+                    answer = question.getWrongAnswer1();
+                    break;
+                case 2:
+                    answer = question.getWrongAnswer2();
+                    break;
+                case 3:
+                    answer = question.getWrongAnswer3();
+                    break;
+            }
+
+            // create array with random answer while the answer letters remain in the order A, B, C, D
+            possibleAnswers[i] = new PossibleAnswerDto(answerLetter, answer);
+        }
+
+        // return filled array
+        return possibleAnswers;
+    }
+
+    /**
+     * Returns the answer letter of the correct answer like it is defined in the given array of all possible answers.
+     *
+     * @param possibleAnswers the possible answers A, B, C, D including an random ordered answer text
+     * @param correctAnswer the correct answer as text
+     * @return the answer letter of the correct answer inside the given array
+     */
+    private AnswerLetter getCorrectAnswer(PossibleAnswerDto[] possibleAnswers, String correctAnswer) {
+        for (PossibleAnswerDto possibleAnswer : possibleAnswers) {
+            if (possibleAnswer.getAnswerText().equals(correctAnswer)) {
+                return possibleAnswer.getAnswerLetter();
+            }
+        }
+        return null; // needed for compiler, never reached due to initialization process of possibleAnswers[]
+    }
+}
