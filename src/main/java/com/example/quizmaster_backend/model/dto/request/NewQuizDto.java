@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +26,8 @@ public class NewQuizDto {
     @Min(value = 10, message = "{NewQuizDto.questionCount.min10}")
     @Max(value = 10, message = "{NewQuizDto.questionCount.max30}")
     private int questionCount;
+
+    private List<Long> alreadyUsedQuestions;
 
     /*======================================*
      * STRING REPRESENTATION
