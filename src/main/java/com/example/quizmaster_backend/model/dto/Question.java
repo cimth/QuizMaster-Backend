@@ -41,6 +41,27 @@ public class Question {
     private String wrongAnswer3;
 
     /*======================================*
+     * CUSTOM CONSTRUCTOR
+     *======================================*/
+
+    /**
+     * Creates a question with all fields but an ID.
+     * @param questionText the text of the question
+     * @param correctAnswer the text of the correct answer
+     * @param wrongAnswer1 the text of one wrong answer
+     * @param wrongAnswer2 the text of one wrong answer
+     * @param wrongAnswer3 the text of one wrong answer
+     */
+    public Question(@NotNull String questionText, @NotNull String correctAnswer, @NotNull String wrongAnswer1,
+                    @NotNull String wrongAnswer2, @NotNull String wrongAnswer3) {
+        this.questionText = questionText;
+        this.correctAnswer = correctAnswer;
+        this.wrongAnswer1 = wrongAnswer1;
+        this.wrongAnswer2 = wrongAnswer2;
+        this.wrongAnswer3 = wrongAnswer3;
+    }
+
+    /*======================================*
      * STRING REPRESENTATION
      *======================================*/
 

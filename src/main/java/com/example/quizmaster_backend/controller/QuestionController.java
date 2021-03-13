@@ -1,5 +1,6 @@
 package com.example.quizmaster_backend.controller;
 
+import com.example.quizmaster_backend.exception.RestExceptionHandler;
 import com.example.quizmaster_backend.model.dto.request.NewOrUpdatedQuestionDto;
 import com.example.quizmaster_backend.model.dto.response.QuestionDto;
 import com.example.quizmaster_backend.service.QuestionService;
@@ -45,7 +46,7 @@ public class QuestionController {
     /**
      * POST: /question
      * <br />
-     * Adds the question given in the request body to the database if the request contains the admin token.
+     * Adds the question given in the request body to the database.
      *
      * @param newQuestionData the question's data
      * @param locale the locale of the user
@@ -55,7 +56,7 @@ public class QuestionController {
     public ResponseEntity<String> addQuestion(
             @Valid @NotNull @RequestBody NewOrUpdatedQuestionDto newQuestionData,
             Locale locale) {
-
+        this.questionService.addQuestion(newQuestionData.getQuestionText(), newQuestionData.getCorrectAnswer(), newQuestionData.getWrongAnswers());
         return ResponseEntity.ok(messageSource.getMessage("QuestionController.created", null, locale));
     }
 
@@ -63,11 +64,22 @@ public class QuestionController {
      * READ MAPPING
      *======================================*/
 
+    /**
+     * GET: /question/{id}
+     * <br />
+     * Returns the question with the given id.
+     * <br />
+     * If request is invalid or the question does not exist, the {@link RestExceptionHandler} will return an error
+     * message.
+     *
+     * @param id the id of the requested question
+     * @param locale the locale of the user
+     * @return the requested question if the request is valid
+     */
     @GetMapping("/{id}")
     public QuestionDto getQuestion(
             @PathVariable("id") Long id,
-            Locale locale
-    ) {
+            Locale locale) {
         return questionService.findQuestionById(id, locale);
     }
 }

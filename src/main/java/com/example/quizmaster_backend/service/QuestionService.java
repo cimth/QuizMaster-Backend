@@ -39,6 +39,22 @@ public class QuestionService {
     }
 
     /*======================================*
+     * CREATE
+     *======================================*/
+
+    /**
+     * Adds a question with the given data to the database.
+     *
+     * @param questionText the text of the question
+     * @param correctAnswer the text of the correct answer
+     * @param wrongAnswers the texts of the wrong answers (validity already checked!)
+     */
+    public void addQuestion(String questionText, String correctAnswer, List<String> wrongAnswers) {
+        Question question = new Question(questionText, correctAnswer, wrongAnswers.get(0), wrongAnswers.get(1), wrongAnswers.get(2));
+        this.questionRepository.save(question);
+    }
+
+    /*======================================*
      * READ
      *======================================*/
 
