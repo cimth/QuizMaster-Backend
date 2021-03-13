@@ -6,11 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.core.style.ToStringCreator;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -23,9 +21,10 @@ public class NewQuizDto {
      * FIELDS
      *======================================*/
 
+    @NotNull(message = "{NewQuizDto.questionCount.NotNull}")
     @Min(value = 10, message = "{NewQuizDto.questionCount.min10}")
-    @Max(value = 10, message = "{NewQuizDto.questionCount.max30}")
-    private int questionCount;
+    @Max(value = 30, message = "{NewQuizDto.questionCount.max30}")
+    private Integer questionCount;
 
     private List<Long> alreadyUsedQuestions;
 
