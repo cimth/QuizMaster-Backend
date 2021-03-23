@@ -1,4 +1,4 @@
-package com.example.quizmaster_backend.model.dto;
+package com.example.quizmaster_backend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

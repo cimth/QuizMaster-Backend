@@ -1,7 +1,7 @@
 package com.example.quizmaster_backend.controller;
 
 import com.example.quizmaster_backend.exception.RestExceptionHandler;
-import com.example.quizmaster_backend.model.dto.Question;
+import com.example.quizmaster_backend.model.Question;
 import com.example.quizmaster_backend.model.dto.request.NewOrUpdateQuestionDto;
 import com.example.quizmaster_backend.model.dto.response.QuestionDto;
 import com.example.quizmaster_backend.service.QuestionService;

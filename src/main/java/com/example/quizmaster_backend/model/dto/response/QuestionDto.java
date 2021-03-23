@@ -1,6 +1,6 @@
 package com.example.quizmaster_backend.model.dto.response;
 
-import com.example.quizmaster_backend.model.dto.AnswerLetter;
+import com.example.quizmaster_backend.model.AnswerLetter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

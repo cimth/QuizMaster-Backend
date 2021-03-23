@@ -1,8 +1,8 @@
 package com.example.quizmaster_backend.service;
 
 import com.example.quizmaster_backend.exception.DataNotFoundException;
-import com.example.quizmaster_backend.model.dto.AnswerLetter;
-import com.example.quizmaster_backend.model.dto.Question;
+import com.example.quizmaster_backend.model.AnswerLetter;
+import com.example.quizmaster_backend.model.Question;
 import com.example.quizmaster_backend.model.dto.response.PossibleAnswerDto;
 import com.example.quizmaster_backend.model.dto.response.QuestionDto;
 import com.example.quizmaster_backend.repository.QuestionRepository;

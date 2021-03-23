@@ -1,6 +1,6 @@
 package com.example.quizmaster_backend.repository;
 
-import com.example.quizmaster_backend.model.dto.Question;
+import com.example.quizmaster_backend.model.Question;
 import org.springframework.data.repository.CrudRepository;
 
 public interface QuestionRepository extends CrudRepository<Question, Long> {
