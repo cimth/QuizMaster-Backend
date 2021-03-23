@@ -59,6 +59,18 @@ public class QuestionService {
      *======================================*/
 
     /**
+     * Returns all questions of the database.
+     * <br />
+     * Does not return QuestionDto objects but Question objects since this request is not supposed to be
+     * used for playing a quiz but for managing questions.
+     *
+     * @return all questions of the database
+     */
+    public Iterable<Question> getAllQuestions() {
+        return questionRepository.findAll();
+    }
+
+    /**
      * Returns the QuestionDto for the question with the given ID.
      * <br />
      * If the question does not exist, a {@link DataNotFoundException} will be thrown.
@@ -67,7 +79,7 @@ public class QuestionService {
      * @param locale the locale of the user
      * @return the requested question as DTO for the user if the request is valid
      */
-    public QuestionDto findQuestionById(Long id, Locale locale) {
+    public QuestionDto getQuestionById(Long id, Locale locale) {
 
         // get question
         Optional<Question> question = questionRepository.findById(id);

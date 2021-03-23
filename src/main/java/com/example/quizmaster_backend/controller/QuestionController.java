@@ -1,6 +1,7 @@
 package com.example.quizmaster_backend.controller;
 
 import com.example.quizmaster_backend.exception.RestExceptionHandler;
+import com.example.quizmaster_backend.model.dto.Question;
 import com.example.quizmaster_backend.model.dto.request.NewOrUpdateQuestionDto;
 import com.example.quizmaster_backend.model.dto.response.QuestionDto;
 import com.example.quizmaster_backend.service.QuestionService;
@@ -65,6 +66,20 @@ public class QuestionController {
      *======================================*/
 
     /**
+     * GET: /question
+     * <br />
+     * Returns all questions of the database. This request is supposed to be used for managing the questions.
+     * For playing a Quiz session use the request of a single question to get a QuestionDto object which has
+     * applied all answers to corresponding answer letters etc.
+     *
+     * @return all questions of the database
+     */
+    @GetMapping
+    public Iterable<Question> getQuestion() {
+        return questionService.getAllQuestions();
+    }
+
+    /**
      * GET: /question/{id}
      * <br />
      * Returns the question with the given id.
@@ -80,7 +95,7 @@ public class QuestionController {
     public QuestionDto getQuestion(
             @PathVariable("id") Long id,
             Locale locale) {
-        return questionService.findQuestionById(id, locale);
+        return questionService.getQuestionById(id, locale);
     }
 
     /*======================================*
