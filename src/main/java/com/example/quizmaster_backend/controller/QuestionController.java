@@ -1,7 +1,7 @@
 package com.example.quizmaster_backend.controller;
 
 import com.example.quizmaster_backend.exception.RestExceptionHandler;
-import com.example.quizmaster_backend.model.dto.request.NewOrUpdatedQuestionDto;
+import com.example.quizmaster_backend.model.dto.request.NewOrUpdateQuestionDto;
 import com.example.quizmaster_backend.model.dto.response.QuestionDto;
 import com.example.quizmaster_backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class QuestionController {
      */
     @PostMapping
     public ResponseEntity<String> addQuestion(
-            @Valid @NotNull @RequestBody NewOrUpdatedQuestionDto newQuestionData,
+            @Valid @NotNull @RequestBody NewOrUpdateQuestionDto newQuestionData,
             Locale locale) {
         this.questionService.addQuestion(newQuestionData.getQuestionText(), newQuestionData.getCorrectAnswer(), newQuestionData.getWrongAnswers());
         return ResponseEntity.ok(messageSource.getMessage("QuestionController.created", null, locale));
@@ -81,5 +81,30 @@ public class QuestionController {
             @PathVariable("id") Long id,
             Locale locale) {
         return questionService.findQuestionById(id, locale);
+    }
+
+    /*======================================*
+     * UPDATE MAPPING
+     *======================================*/
+
+    /**
+     * PUT: /question/{id}
+     * <br />
+     * Updates the question given by its ID with the data in the request body inside the database.
+     * <br />
+     * If request is invalid or the question does not exist, the {@link RestExceptionHandler} will return an error
+     * message.
+     *
+     * @param updateQuestionData the (updated) question's data
+     * @param locale the locale of the user
+     * @return a success message if the request is valid
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<String> addQuestion(
+            @PathVariable("id") Long id,
+            @Valid @NotNull @RequestBody NewOrUpdateQuestionDto updateQuestionData,
+            Locale locale) {
+        this.questionService.updateQuestion(id, updateQuestionData.getQuestionText(), updateQuestionData.getCorrectAnswer(), updateQuestionData.getWrongAnswers(), locale);
+        return ResponseEntity.ok(messageSource.getMessage("QuestionController.updated", null, locale));
     }
 }

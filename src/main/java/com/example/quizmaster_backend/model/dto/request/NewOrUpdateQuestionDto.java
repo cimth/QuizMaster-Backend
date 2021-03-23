@@ -16,21 +16,21 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewOrUpdatedQuestionDto {
+public class NewOrUpdateQuestionDto {
 
     /*======================================*
      * FIELDS
      *======================================*/
     
-    @NotEmpty(message = "{NewOrUpdatedQuestionDto.question.NotEmpty}")
+    @NotEmpty(message = "{NewOrUpdateQuestionDto.questionText.NotEmpty}")
     private String questionText;
 
-    @NotEmpty(message = "{NewOrUpdatedQuestionDto.answers.NotEmpty}")
+    @NotEmpty(message = "{NewOrUpdateQuestionDto.answers.NotEmpty}")
     private String correctAnswer;
 
-    @NotEmpty(message = "{NewOrUpdatedQuestionDto.answers.NotEmpty}")
-    @Size(min = 3, max = 3, message = "{NewOrUpdatedQuestionDto.wrongAnswers.size}")
-    private List<@NotEmpty(message = "{NewOrUpdatedQuestionDto.answers.NotEmpty}") String> wrongAnswers;
+    @NotEmpty(message = "{NewOrUpdateQuestionDto.answers.NotEmpty}")
+    @Size(min = 3, max = 3, message = "{NewOrUpdateQuestionDto.wrongAnswers.size}")
+    private List<@NotEmpty(message = "{NewOrUpdateQuestionDto.answers.NotEmpty}") String> wrongAnswers;
 
     /*======================================*
      * STRING REPRESENTATION

@@ -153,4 +153,41 @@ public class QuestionService {
         }
         return null; // needed for compiler, never reached due to initialization process of possibleAnswers[]
     }
+
+    /*======================================*
+     * UPDATE
+     *======================================*/
+
+    /**
+     * Updates the question given by its ID with the given data.
+     * <br />
+     * If the question does not exist, a {@link DataNotFoundException} will be thrown.
+     *
+     * @param questionId the ID of the question to update
+     * @param questionText the (updated) text of the question
+     * @param correctAnswer the (updated) text of the correct answer
+     * @param wrongAnswers the (updated) texts of the wrong answers (validity already checked!)
+     * @param locale the locale of the user
+     */
+    public void updateQuestion(Long questionId, String questionText, String correctAnswer, List<String> wrongAnswers, Locale locale) {
+
+        // get the requested question from the database if existing
+        // => if not existing throw an exception
+        Optional<Question> question = questionRepository.findById(questionId);
+
+        if (question.isEmpty()) {
+            throw new DataNotFoundException(this.messageSource.getMessage("QuestionService.NotFound", null, locale));
+        }
+
+        // update question and save the changes into the database
+        Question updatedQuestion = question.get();
+
+        updatedQuestion.setQuestionText(questionText);
+        updatedQuestion.setCorrectAnswer(correctAnswer);
+        updatedQuestion.setWrongAnswer1(wrongAnswers.get(0));
+        updatedQuestion.setWrongAnswer2(wrongAnswers.get(1));
+        updatedQuestion.setWrongAnswer3(wrongAnswers.get(2));
+
+        this.questionRepository.save(updatedQuestion);
+    }
 }
