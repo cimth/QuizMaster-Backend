@@ -1,10 +1,10 @@
-# MYSQL
+// H2
 
 CREATE TABLE question(
-     id                      BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-     questionText            TEXT NOT NULL,
-     correctAnswer           TEXT NOT NULL,
-     wrongAnswer1            TEXT NOT NULL,
-     wrongAnswer2            TEXT NOT NULL,
-     wrongAnswer3            TEXT NOT NULL
+     id                      IDENTITY NOT NULL,
+     questionText            CLOB NOT NULL,
+     correctAnswer           CLOB NOT NULL,
+     wrongAnswer1            CLOB NOT NULL,
+     wrongAnswer2            CLOB NOT NULL,
+     wrongAnswer3            CLOB NOT NULL
 );

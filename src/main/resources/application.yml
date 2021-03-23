@@ -1,6 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://<db-server>:<db-port>/<db-name>
+    driver-class-name: org.h2.Driver
+
+    # overwrite the db attributes here or in local profile
+    url: jdbc:h2:<path to db-file>
     username: <db-user>
     password: <db-pw>
 
@@ -8,3 +11,4 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.H2Dialect
