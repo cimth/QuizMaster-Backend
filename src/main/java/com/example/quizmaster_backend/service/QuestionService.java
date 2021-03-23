@@ -190,4 +190,30 @@ public class QuestionService {
 
         this.questionRepository.save(updatedQuestion);
     }
+
+    /*======================================*
+     * DELETE
+     *======================================*/
+
+    /**
+     * Deletes the question given by its ID from the database.
+     * <br />
+     * If the question does not exist, a {@link DataNotFoundException} will be thrown.
+     *
+     * @param questionId the ID of the question to delete
+     * @param locale the locale of the user
+     */
+    public void deleteQuestion(Long questionId, Locale locale) {
+
+        // check if the question to be deleted is actual existing
+        // => if not existing throw an exception
+        boolean questionExists = questionRepository.existsById(questionId);
+
+        if (!questionExists) {
+            throw new DataNotFoundException(this.messageSource.getMessage("QuestionService.NotFound", null, locale));
+        }
+
+        // delete question
+        this.questionRepository.deleteById(questionId);
+    }
 }

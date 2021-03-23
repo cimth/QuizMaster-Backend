@@ -107,4 +107,27 @@ public class QuestionController {
         this.questionService.updateQuestion(id, updateQuestionData.getQuestionText(), updateQuestionData.getCorrectAnswer(), updateQuestionData.getWrongAnswers(), locale);
         return ResponseEntity.ok(messageSource.getMessage("QuestionController.updated", null, locale));
     }
+
+    /*======================================*
+     * DELETE MAPPING
+     *======================================*/
+
+    /**
+     * DELETE: /question/{id}
+     * <br />
+     * Deletes the question given by its ID.
+     * <br />
+     * If request is invalid or the question does not exist, the {@link RestExceptionHandler} will return an error
+     * message.
+     *
+     * @param locale the locale of the user
+     * @return a success message if the request is valid
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> addQuestion(
+            @PathVariable("id") Long id,
+            Locale locale) {
+        this.questionService.deleteQuestion(id, locale);
+        return ResponseEntity.ok(messageSource.getMessage("QuestionController.deleted", null, locale));
+    }
 }
