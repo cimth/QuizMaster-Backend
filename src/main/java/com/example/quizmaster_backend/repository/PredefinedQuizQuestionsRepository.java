@@ -16,5 +16,6 @@ public interface PredefinedQuizQuestionsRepository extends CrudRepository<Predef
     @Transactional
     void deleteAllByQuizId(Long quizId);
 
-    boolean findByQuestionId(Long questionId);
+    @Transactional
+    boolean existsByQuestionId(Long questionId);
 }

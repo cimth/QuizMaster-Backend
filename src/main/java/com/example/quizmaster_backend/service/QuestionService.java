@@ -1,10 +1,13 @@
 package com.example.quizmaster_backend.service;
 
+import com.example.quizmaster_backend.exception.BadOperationException;
+import com.example.quizmaster_backend.exception.DataAlreadyExistingException;
 import com.example.quizmaster_backend.exception.DataNotFoundException;
 import com.example.quizmaster_backend.model.AnswerLetter;
 import com.example.quizmaster_backend.model.Question;
 import com.example.quizmaster_backend.model.dto.response.PossibleAnswerDto;
 import com.example.quizmaster_backend.model.dto.response.QuestionDto;
+import com.example.quizmaster_backend.repository.PredefinedQuizQuestionsRepository;
 import com.example.quizmaster_backend.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -20,6 +23,7 @@ public class QuestionService {
      *======================================*/
 
     private final QuestionRepository questionRepository;
+    private final PredefinedQuizQuestionsRepository predefinedQuizQuestionsRepository;
     private final MessageSource messageSource;
 
     /*======================================*
@@ -30,11 +34,13 @@ public class QuestionService {
      * Creates a service for handling the business logic for questions like creating new questions or deleting them.
      *
      * @param questionRepository the data repository for questions
+     * @param predefinedQuizQuestionsRepository the data repository for quiz - question relations
      * @param messageSource a message source for localized strings from resources
      */
     @Autowired
-    public QuestionService(QuestionRepository questionRepository, MessageSource messageSource) {
+    public QuestionService(QuestionRepository questionRepository, PredefinedQuizQuestionsRepository predefinedQuizQuestionsRepository, MessageSource messageSource) {
         this.questionRepository = questionRepository;
+        this.predefinedQuizQuestionsRepository = predefinedQuizQuestionsRepository;
         this.messageSource = messageSource;
     }
 
@@ -225,7 +231,15 @@ public class QuestionService {
             throw new DataNotFoundException(this.messageSource.getMessage("QuestionService.NotFound", null, locale));
         }
 
+        // check if the question is not contained in a predefined quiz
+        // => if contained in a predefined quiz throw an exception
+        boolean questionIsUsed = predefinedQuizQuestionsRepository.existsByQuestionId(questionId);
+
+        if (questionIsUsed) {
+            throw new BadOperationException(this.messageSource.getMessage("QuestionService.QuestionToBeDeletedInUse", null, locale));
+        }
+
         // delete question
-        this.questionRepository.deleteById(questionId);
+        questionRepository.deleteById(questionId);
     }
 }

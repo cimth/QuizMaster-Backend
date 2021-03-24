@@ -127,4 +127,18 @@ public class RestExceptionHandler {
     public String handleNotFound(DataNotFoundException ex) {
         return ex.getErrorDetails();
     }
+
+    /**
+     * Returns the error details of the exception to the user as plain string.
+     * Occurs when an user requests data that do not exist or when an user wants to perform a request on data that
+     * do not exist.
+     *
+     * @param ex the exception
+     * @return the error message string
+     */
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(BadOperationException.class)
+    public String handleBadOperation(BadOperationException ex) {
+        return ex.getErrorDetails();
+    }
 }
