@@ -8,6 +8,7 @@ import org.springframework.core.style.ToStringCreator;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -15,18 +16,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewQuizDto {
+public class NewPredefinedQuizDto {
 
     /*======================================*
      * FIELDS
      *======================================*/
 
-    @NotNull(message = "{NewQuizDto.questionCount.NotNull}")
-    @Min(value = 10, message = "{NewQuizDto.questionCount.min10}")
-    @Max(value = 30, message = "{NewQuizDto.questionCount.max30}")
-    private Integer questionCount;
-
-    private List<Long> alreadyUsedQuestions;
+    @NotEmpty(message = "{NewOrUpdatePredefinedQuizDto.quizName.NotEmpty}")
+    private String quizName;
 
     /*======================================*
      * STRING REPRESENTATION
@@ -39,7 +36,7 @@ public class NewQuizDto {
     public String toString() {
 
         ToStringCreator tsc = new ToStringCreator(this);
-        tsc.append("questionCount", questionCount);
+        tsc.append("quizName", quizName);
 
         return tsc.toString();
     }
