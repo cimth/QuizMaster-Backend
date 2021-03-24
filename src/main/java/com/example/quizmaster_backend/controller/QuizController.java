@@ -1,5 +1,6 @@
 package com.example.quizmaster_backend.controller;
 
+import com.example.quizmaster_backend.exception.RestExceptionHandler;
 import com.example.quizmaster_backend.model.PredefinedQuiz;
 import com.example.quizmaster_backend.model.dto.request.NewOrUpdateQuestionDto;
 import com.example.quizmaster_backend.model.dto.request.NewPredefinedQuizDto;
@@ -146,5 +147,26 @@ public class QuizController {
         return quizService.getPredefinedQuiz(id, locale);
     }
 
+    /*======================================*
+     * DELETE MAPPING FOR PREDEFINED QUIZZES
+     *======================================*/
 
+    /**
+     * DELETE: /quiz/{id}
+     * <br />
+     * Deletes the predefined quiz with the given ID.
+     * <br />
+     * If request is invalid or the quiz does not exist, the {@link RestExceptionHandler} will return an error
+     * message.
+     *
+     * @param locale the locale of the user
+     * @return a success message if the request is valid
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> addQuestion(
+            @PathVariable("id") Long id,
+            Locale locale) {
+        this.quizService.deletePredefinedQuiz(id, locale);
+        return ResponseEntity.ok(messageSource.getMessage("QuizController.deleted", null, locale));
+    }
 }

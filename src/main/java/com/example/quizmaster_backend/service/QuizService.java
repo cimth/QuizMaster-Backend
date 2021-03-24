@@ -222,4 +222,33 @@ public class QuizService {
             predefinedQuizQuestionsRepository.save(q);
         }
     }
+
+    /*======================================*
+     * DELETE
+     *======================================*/
+
+    /**
+     * Deletes the predefined quiz with the given ID from the database.
+     * <br />
+     * If the quiz does not exist, a {@link DataNotFoundException} will be thrown.
+     *
+     * @param quizId the ID of the quiz to delete
+     * @param locale the locale of the user
+     */
+    public void deletePredefinedQuiz(Long quizId, Locale locale) {
+
+        // check if the quiz to be deleted is actual existing
+        // => if not existing throw an exception
+        boolean quizExists = predefinedQuizRepository.existsById(quizId);
+
+        if (!quizExists) {
+            throw new DataNotFoundException(this.messageSource.getMessage("QuizService.NotFound", null, locale));
+        }
+
+        // delete quiz
+        this.predefinedQuizRepository.deleteById(quizId);
+
+        // delete all question associations with the quiz
+        this.predefinedQuizQuestionsRepository.deleteAllByQuizId(quizId);
+    }
 }
