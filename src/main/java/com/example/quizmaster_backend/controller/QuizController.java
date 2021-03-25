@@ -10,6 +10,7 @@ import com.example.quizmaster_backend.model.dto.response.PredefinedQuizDto;
 import com.example.quizmaster_backend.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +64,7 @@ public class QuizController {
             @Valid @NotNull @RequestBody NewPredefinedQuizDto newPredefinedQuizDto,
             Locale locale) {
         this.quizService.createPredefinedQuiz(newPredefinedQuizDto.getQuizName(), locale);
-        return ResponseEntity.ok(messageSource.getMessage("QuizController.created", null, locale));
+        return new ResponseEntity<>(messageSource.getMessage("QuizController.created", null, locale), HttpStatus.CREATED);
     }
 
     /**

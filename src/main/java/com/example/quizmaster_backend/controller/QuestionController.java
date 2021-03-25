@@ -7,6 +7,7 @@ import com.example.quizmaster_backend.model.dto.response.QuestionDto;
 import com.example.quizmaster_backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,7 +59,7 @@ public class QuestionController {
             @Valid @NotNull @RequestBody NewOrUpdateQuestionDto newQuestionData,
             Locale locale) {
         this.questionService.addQuestion(newQuestionData.getQuestionText(), newQuestionData.getCorrectAnswer(), newQuestionData.getWrongAnswers());
-        return ResponseEntity.ok(messageSource.getMessage("QuestionController.created", null, locale));
+        return new ResponseEntity<>((messageSource.getMessage("QuestionController.created", null, locale)), HttpStatus.CREATED);
     }
 
     /*======================================*
