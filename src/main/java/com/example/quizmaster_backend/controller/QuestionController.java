@@ -51,15 +51,12 @@ public class QuestionController {
      * Adds the question given in the request body to the database.
      *
      * @param newQuestionData the question's data
-     * @param locale the locale of the user
-     * @return a success message
+     *
+     * @return the created question
      */
     @PostMapping
-    public ResponseEntity<String> addQuestion(
-            @Valid @NotNull @RequestBody NewOrUpdateQuestionDto newQuestionData,
-            Locale locale) {
-        this.questionService.addQuestion(newQuestionData.getQuestionText(), newQuestionData.getCorrectAnswer(), newQuestionData.getWrongAnswers());
-        return new ResponseEntity<>((messageSource.getMessage("QuestionController.created", null, locale)), HttpStatus.CREATED);
+    public Question addQuestion(@Valid @NotNull @RequestBody NewOrUpdateQuestionDto newQuestionData) {
+        return this.questionService.addQuestion(newQuestionData.getQuestionText(), newQuestionData.getCorrectAnswer(), newQuestionData.getWrongAnswers());
     }
 
     /*======================================*

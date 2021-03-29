@@ -57,14 +57,14 @@ public class QuizController {
      *
      * @param newPredefinedQuizDto the quiz' data (currently only a quiz name)
      * @param locale the locale of the user
+     *
      * @return a success message
      */
     @PostMapping
-    public ResponseEntity<String> createPredefinedQuiz(
+    public PredefinedQuiz createPredefinedQuiz(
             @Valid @NotNull @RequestBody NewPredefinedQuizDto newPredefinedQuizDto,
             Locale locale) {
-        this.quizService.createPredefinedQuiz(newPredefinedQuizDto.getQuizName(), locale);
-        return new ResponseEntity<>(messageSource.getMessage("QuizController.created", null, locale), HttpStatus.CREATED);
+        return this.quizService.createPredefinedQuiz(newPredefinedQuizDto.getQuizName(), locale);
     }
 
     /**
