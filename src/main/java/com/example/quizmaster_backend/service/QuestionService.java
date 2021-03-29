@@ -1,12 +1,11 @@
 package com.example.quizmaster_backend.service;
 
 import com.example.quizmaster_backend.exception.BadOperationException;
-import com.example.quizmaster_backend.exception.DataAlreadyExistingException;
 import com.example.quizmaster_backend.exception.DataNotFoundException;
 import com.example.quizmaster_backend.model.AnswerLetter;
 import com.example.quizmaster_backend.model.Question;
 import com.example.quizmaster_backend.model.dto.response.PossibleAnswerDto;
-import com.example.quizmaster_backend.model.dto.response.QuestionDto;
+import com.example.quizmaster_backend.model.dto.response.QuestionPlayFormatDto;
 import com.example.quizmaster_backend.repository.PredefinedQuizQuestionsRepository;
 import com.example.quizmaster_backend.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,20 +73,37 @@ public class QuestionService {
      *
      * @return all questions of the database
      */
-    public Iterable<Question> getAllQuestions() {
+    public Iterable<Question> getAllQuestionsInRawFormat() {
         return questionRepository.findAll();
     }
 
+
+    public Question getRawQuestionById(Long id, Locale locale) {
+
+        // get question
+        Optional<Question> question = questionRepository.findById(id);
+
+        // throw exception if no question with the specified id was found
+        if (question.isEmpty()) {
+            throw new DataNotFoundException(messageSource.getMessage("QuestionService.NotFound", null, locale));
+        }
+
+        // return the raw question
+        return question.get();
+    }
+
     /**
-     * Returns the QuestionDto for the question with the given ID.
+     * Returns the question with the given ID in play format. This format is supposed to be used when  playing a quiz
+     * and contains, as an example, answer letters for an easier use in the frontend.
      * <br />
      * If the question does not exist, a {@link DataNotFoundException} will be thrown.
      *
      * @param id the id of the requested question
      * @param locale the locale of the user
-     * @return the requested question as DTO for the user if the request is valid
+     *
+     * @return the requested question in play format if the request is valid
      */
-    public QuestionDto getQuestionById(Long id, Locale locale) {
+    public QuestionPlayFormatDto getPlayFormatQuestionById(Long id, Locale locale) {
 
         // get question
         Optional<Question> question = questionRepository.findById(id);
@@ -102,7 +118,7 @@ public class QuestionService {
         PossibleAnswerDto[] possibleAnswers = createPossibleAnswers(question.get());
         AnswerLetter correctAnswer = getCorrectAnswer(possibleAnswers, question.get().getCorrectAnswer());
 
-        return new QuestionDto(id, questionText, possibleAnswers, correctAnswer);
+        return new QuestionPlayFormatDto(id, questionText, possibleAnswers, correctAnswer);
     }
 
     /**

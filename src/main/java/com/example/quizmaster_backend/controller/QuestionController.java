@@ -3,11 +3,10 @@ package com.example.quizmaster_backend.controller;
 import com.example.quizmaster_backend.exception.RestExceptionHandler;
 import com.example.quizmaster_backend.model.Question;
 import com.example.quizmaster_backend.model.dto.request.NewOrUpdateQuestionDto;
-import com.example.quizmaster_backend.model.dto.response.QuestionDto;
+import com.example.quizmaster_backend.model.dto.response.QuestionPlayFormatDto;
 import com.example.quizmaster_backend.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,34 +65,56 @@ public class QuestionController {
     /**
      * GET: /question
      * <br />
-     * Returns all questions of the database. This request is supposed to be used for managing the questions.
-     * For playing a Quiz session use the request of a single question to get a QuestionDto object which has
+     * Returns all questions of the database in raw format.
+     * <br />
+     * This request is supposed to be used for managing the questions.
+     * For playing a Quiz session use the request of a single question in play format which has
      * applied all answers to corresponding answer letters etc.
      *
-     * @return all questions of the database
+     * @return all questions of the database in raw format
      */
     @GetMapping
-    public Iterable<Question> getQuestion() {
-        return questionService.getAllQuestions();
+    public Iterable<Question> getAllQuestions() {
+        return questionService.getAllQuestionsInRawFormat();
     }
 
     /**
      * GET: /question/{id}
      * <br />
-     * Returns the question with the given id.
+     * Returns the question in raw format with the given id.
      * <br />
      * If request is invalid or the question does not exist, the {@link RestExceptionHandler} will return an error
      * message.
      *
      * @param id the id of the requested question
      * @param locale the locale of the user
-     * @return the requested question if the request is valid
+     * @return the requested question in raw format if the request is valid
      */
     @GetMapping("/{id}")
-    public QuestionDto getQuestion(
+    public Question getQuestionInRawFormat(
             @PathVariable("id") Long id,
             Locale locale) {
-        return questionService.getQuestionById(id, locale);
+        return questionService.getRawQuestionById(id, locale);
+    }
+
+    /**
+     * GET: /question/{id}/playFormat
+     * <br />
+     * Returns the question with the given id in a format which is intended to be used when playing a quiz.
+     * As an example, the answers are shuffled and provided with corresponding answer letters.
+     * <br />
+     * If request is invalid or the question does not exist, the {@link RestExceptionHandler} will return an error
+     * message.
+     *
+     * @param id the id of the requested question
+     * @param locale the locale of the user
+     * @return the requested question in play format if the request is valid
+     */
+    @GetMapping("/{id}/playFormat")
+    public QuestionPlayFormatDto getQuestionInPlayFormat(
+            @PathVariable("id") Long id,
+            Locale locale) {
+        return questionService.getPlayFormatQuestionById(id, locale);
     }
 
     /*======================================*

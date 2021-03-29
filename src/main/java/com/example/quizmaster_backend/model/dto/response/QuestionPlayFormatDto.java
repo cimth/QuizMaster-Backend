@@ -18,7 +18,7 @@ import java.util.Arrays;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionDto {
+public class QuestionPlayFormatDto {
 
     /*======================================*
      * FIELDS
