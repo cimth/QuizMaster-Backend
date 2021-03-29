@@ -47,9 +47,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * <br />
      * Defines on which requests an authorization with the admin token is needed to proceed.
      * Also defines the exception handler for authentication errors.
+     * <br />
+     * Enables HTTPS while the HTTPS configuration (e.g. for the used certificate) is placed in the resources directory.
      *
      * @see <a href="https://stackoverflow.com/questions/48446708/securing-spring-boot-api-with-api-key-and-secret/48448901">
      *          Securing Spring Boot API with API key and secret
+     *      </a>
+     *
+     * @see <a href="https://www.thomasvitale.com/https-spring-boot-ssl-certificate/">
+     *          How to enable HTTPS in a Spring Boot Java application
      *      </a>
      */
     @Override
@@ -57,6 +63,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         // disable CSRF, has to be set to use admin token for authentication
         http.csrf().disable();
+
+        // force https
+        // see: https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
+        http.requiresChannel()
+                .anyRequest()
+                .requiresSecure();
 
         // do not use sessions
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
