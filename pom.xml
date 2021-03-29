@@ -86,20 +86,44 @@
 
     <build>
         <plugins>
+            <!-- see https://www.baeldung.com/executable-jar-with-maven -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
+                    <classifier>spring-boot</classifier>
+                    <mainClass>com.example.quizmaster_backend.QuizmasterBackendApplication</mainClass>
+                    <!--
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    -->
                 </configuration>
             </plugin>
         </plugins>
+
+        <!-- do not filter .p12 due to corrupted file issues -->
+        <!-- see: https://stackoverflow.com/questions/17298126/generated-certificate-stops-working-when-moved-to-resources-folder -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.p12</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.p12</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>
