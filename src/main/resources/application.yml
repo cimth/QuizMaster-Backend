@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+
+    # overwrite the db attributes here or in local profile
+    url: jdbc:h2:<path to db-file>
+    username: <db-user>
+    password: <db-pw>
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.H2Dialect
+
+server:
+  ssl:
+    enabled: true
+
+    # set up the certificate
+    key-store: <path to the keystore, e.g. .p12 file>
+    key-store-password: <password of the key store>
+    key-store-type: <keystore type, e.g. pkcs12 for .p12 file>
+    key-alias: <key alias inside the keystore>
+    key-password: <password of the key inside the keystore>
+
+  port: 8443  # can be changed, but also has to be changed inside the following class for correct HTTP to HTTPS
+              # redirection: src/main/java/com/example/quizmaster_backend/configuration/ServerConfig.java

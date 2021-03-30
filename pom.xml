@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- inherit from Spring Boot -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <!-- QuizMaster settings -->
+    <groupId>com.example</groupId>
+    <artifactId>quizmaster_backend</artifactId>
+    <version>1.0.0</version>
+    <name>quizmaster_backend</name>
+    <description>This is the backend of QuizMaster implemented with Spring Boot.</description>
+
+    <properties>
+        <!-- define versions -->
+        <!-- note that many of the dependencies' versions are managed automatically by Spring Boot -->
+        <java.version>11</java.version>
+        <spring-boot.version>2.4.3</spring-boot.version>
+        <org.glassfish.javax.el.version>3.0.0</org.glassfish.javax.el.version>
+    </properties>
+
+    <!-- dependencies -->
+    <dependencies>
+
+        <!-- database -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+
+        <!-- validation -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${org.glassfish.javax.el.version}</version>
+        </dependency>
+
+        <!-- web -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- version already defined in spring boot -->
+        </dependency>
+
+        <!-- dev tools -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+
+        <!-- testing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+
+        <!-- lombok for easier Getters, Setters and Constructors -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+
+        <!-- security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <!-- version already defined by Spring Boot -->
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- see https://www.baeldung.com/executable-jar-with-maven -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <classifier>spring-boot</classifier>
+                    <mainClass>com.example.quizmaster_backend.QuizmasterBackendApplication</mainClass>
+                    <!-- lombok is only needed for compilation -->
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <!-- do not filter .p12 due to corrupted file issues -->
+        <!-- see: https://stackoverflow.com/questions/17298126/generated-certificate-stops-working-when-moved-to-resources-folder -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.p12</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.p12</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>
