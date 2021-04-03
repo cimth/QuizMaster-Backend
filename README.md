@@ -68,6 +68,14 @@ key-password: <your key PW>
 
 Anything else will be done by Spring and the server configurations already inserted into the QuizMaster backend.
 
+## CORS
+
+If running the frontend on localhost:4200, you have to enable CORS for this host. The easiest way to achieve this is to 
+add the line `@CrossOrigin("http://localhost:4200")` above each of the controllers. Because the frontend to be linked 
+above will be created with Angular and it does use the Angular default port 4200, this line is already inserted into the 
+controller classes. However, if you want to run the frontend on another port or URL, you have to change this line due to 
+your actual environment configuration.
+
 ## Database
 
 The current setup of the QuizMaster backend uses a file-based H2 database. You have to provide a database file by your

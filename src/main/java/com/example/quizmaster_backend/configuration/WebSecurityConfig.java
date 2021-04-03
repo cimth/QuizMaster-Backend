@@ -61,6 +61,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        // first process CORS, needed for allowed cross origin rules with Angular frontend
+        // see: https://www.baeldung.com/spring-cors#cors-with-spring-security
+        http.cors();
+
         // disable CSRF, has to be set to use admin token for authentication
         http.csrf().disable();
 

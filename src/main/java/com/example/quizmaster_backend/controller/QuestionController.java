@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Locale;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/question")
 public class QuestionController {

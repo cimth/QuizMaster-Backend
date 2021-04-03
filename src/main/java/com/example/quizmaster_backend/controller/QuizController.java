@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
