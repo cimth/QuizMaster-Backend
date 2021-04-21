@@ -27,8 +27,6 @@ public class PredefinedQuizDto {
 
     private int questionCount;
 
-    private boolean isPlayable;
-
     /*======================================*
      * STRING REPRESENTATION
      *======================================*/
@@ -42,8 +40,7 @@ public class PredefinedQuizDto {
         ToStringCreator tsc = new ToStringCreator(this);
         tsc.append("quizId", quizId)
                 .append("quizName", quizName)
-                .append("questionCount", questionCount)
-                .append("isPlayable", isPlayable);
+                .append("questionCount", questionCount);
 
         return tsc.toString();
     }

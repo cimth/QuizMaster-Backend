@@ -123,8 +123,7 @@ public class QuizController {
     /**
      * GET: /quiz/predefined
      * <br />
-     * Returns an array with all predefined quizzes and their important data (count of questions, is playable)
-     * that are stored in the database.
+     * Returns an array with all predefined quizzes and their important data that are stored in the database.
      *
      * @return an array with the response DTOs of predefined quizzes
      */

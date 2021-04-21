@@ -25,7 +25,6 @@ public class UpdatePredefinedQuizDto {
     private String quizName;
 
     @NotNull(message = "{UpdatePrefefinedQuizDto.quizQuestions.NotNull}")
-    @Size(min = 10, max = 30, message = "{UpdatePrefefinedQuizDto.quizQuestions.Size}")
     private List<Long> quizQuestions;
 
     /*======================================*

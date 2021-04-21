@@ -78,8 +78,7 @@ public class QuizService {
         Iterable<PredefinedQuiz> predefinedQuizzes = predefinedQuizRepository.findAll();
         for(PredefinedQuiz q : predefinedQuizzes) {
             int questionCount = predefinedQuizQuestionsRepository.findAllByQuizId(q.getId()).size();
-            boolean isPlayable = questionCount >= 10 && questionCount <= 30;
-            responseQuizzes.add(new PredefinedQuizDto(q.getId(), q.getQuizName(), questionCount, isPlayable));
+            responseQuizzes.add(new PredefinedQuizDto(q.getId(), q.getQuizName(), questionCount));
         }
 
         // return the filled list
