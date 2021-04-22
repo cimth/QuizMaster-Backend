@@ -46,7 +46,7 @@ public class QuizService {
      *
      * @return the created predefined quiz
      */
-    public PredefinedQuiz createPredefinedQuiz(String quizName, Locale locale) {
+    public PredefinedQuizDto createPredefinedQuiz(String quizName, Locale locale) {
 
         // throw exception if a predefined quiz with the given name is already existing
         Optional<PredefinedQuiz> existingQuiz = predefinedQuizRepository.findByQuizName(quizName);
@@ -54,9 +54,13 @@ public class QuizService {
             throw new DataAlreadyExistingException(this.messageSource.getMessage("QuizService.QuizNameAlreadyExisting", null, locale));
         }
 
-        // create, save and return new predefined quiz
+        // create and save new predefined quiz
         PredefinedQuiz quiz = new PredefinedQuiz(quizName);
-        return predefinedQuizRepository.save(quiz);
+        quiz = predefinedQuizRepository.save(quiz);
+
+        // create quiz dto and return it (initialized with 0 questions)
+        PredefinedQuizDto quizDto = new PredefinedQuizDto(quiz.getId(), quiz.getQuizName(), 0);
+        return quizDto;
     }
 
     /*======================================*
