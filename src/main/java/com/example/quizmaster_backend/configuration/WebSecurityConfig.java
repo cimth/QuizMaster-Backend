@@ -84,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/quiz/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/question").permitAll()
                 .antMatchers(HttpMethod.GET, "/question/{\\d+}").permitAll()
+                .antMatchers(HttpMethod.GET, "/question/{\\d+}/playFormat").permitAll()
                 // authorize any other request
                 .anyRequest().authenticated()
             .and()
