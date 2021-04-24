@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/quiz")
 public class QuizController {
@@ -58,10 +59,10 @@ public class QuizController {
      * @param newPredefinedQuizDto the quiz' data (currently only a quiz name)
      * @param locale the locale of the user
      *
-     * @return a success message
+     * @return the created quiz
      */
     @PostMapping
-    public PredefinedQuiz createPredefinedQuiz(
+    public PredefinedQuizDto createPredefinedQuiz(
             @Valid @NotNull @RequestBody NewPredefinedQuizDto newPredefinedQuizDto,
             Locale locale) {
         return this.quizService.createPredefinedQuiz(newPredefinedQuizDto.getQuizName(), locale);
@@ -101,7 +102,7 @@ public class QuizController {
      * @param locale the locale of the user
      * @return an array with X question IDs
      */
-    @GetMapping("/random")
+    @PostMapping("/random")
     public List<Long> getRandomQuiz(
             @Valid @NotNull @RequestBody NewRandomQuizDto newRandomQuizDto,
             Locale locale) {
@@ -122,8 +123,7 @@ public class QuizController {
     /**
      * GET: /quiz/predefined
      * <br />
-     * Returns an array with all predefined quizzes and their important data (count of questions, is playable)
-     * that are stored in the database.
+     * Returns an array with all predefined quizzes and their important data that are stored in the database.
      *
      * @return an array with the response DTOs of predefined quizzes
      */

@@ -22,8 +22,6 @@ public class NewRandomQuizDto {
      *======================================*/
 
     @NotNull(message = "{NewRandomQuizDto.questionCount.NotNull}")
-    @Min(value = 10, message = "{NewRandomQuizDto.questionCount.min10}")
-    @Max(value = 30, message = "{NewRandomQuizDto.questionCount.max30}")
     private Integer questionCount;
 
     private List<Long> alreadyUsedQuestions;

@@ -14,8 +14,8 @@ are shuffled and assigned to a answer letter A, B, C or D.
 You can find the API description, created with OpenAPI / Swagger, inside the following repository:
 https://github.com/cimth/quizmaster_api
 
-The frontend is currently in work. After finishing a stable version with all necessary features, a URL to the 
-corresponding repository will be inserted here.
+The frontend, created with Angular, is located within the following repository:
+https://github.com/cimth/quizmaster_frontend
 
 ## How to run the QuizMaster backend as a JAR
 
@@ -67,6 +67,14 @@ key-password: <your key PW>
 ```
 
 Anything else will be done by Spring and the server configurations already inserted into the QuizMaster backend.
+
+## CORS
+
+If running the frontend on localhost:4200, you have to enable CORS for this host. The easiest way to achieve this is to 
+add the line `@CrossOrigin("http://localhost:4200")` above each of the controllers. Because the frontend to be linked 
+above will be created with Angular and it does use the Angular default port 4200, this line is already inserted into the 
+controller classes. However, if you want to run the frontend on another port or URL, you have to change this line due to 
+your actual environment configuration.
 
 ## Database
 

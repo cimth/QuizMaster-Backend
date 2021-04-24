@@ -141,4 +141,18 @@ public class RestExceptionHandler {
     public String handleBadOperation(BadOperationException ex) {
         return ex.getErrorDetails();
     }
+
+    /**
+     * Returns the error details of the exception to the user as plain string.
+     * Occurs when an user requests data that do not exist or when an user wants to perform a request on data that
+     * do not exist.
+     *
+     * @param ex the exception
+     * @return the error message string
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DataAlreadyExistingException.class)
+    public String handleAlreadyExisting(DataAlreadyExistingException ex) {
+        return ex.getErrorDetails();
+    }
 }
