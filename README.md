@@ -14,8 +14,8 @@ are shuffled and assigned to a answer letter A, B, C or D.
 You can find the API description, created with OpenAPI / Swagger, inside the following repository:
 https://github.com/cimth/quizmaster_api
 
-The frontend is currently in work. After finishing a stable version with all necessary features, a URL to the 
-corresponding repository will be inserted here.
+The frontend, created with Angular, is located within the following repository:
+https://github.com/cimth/quizmaster_frontend
 
 ## How to run the QuizMaster backend as a JAR
 
