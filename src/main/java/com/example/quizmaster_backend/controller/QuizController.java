@@ -102,7 +102,7 @@ public class QuizController {
      * @param locale the locale of the user
      * @return an array with X question IDs
      */
-    @GetMapping("/random")
+    @PostMapping("/random")
     public List<Long> getRandomQuiz(
             @Valid @NotNull @RequestBody NewRandomQuizDto newRandomQuizDto,
             Locale locale) {
