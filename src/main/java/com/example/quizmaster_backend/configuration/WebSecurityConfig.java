@@ -2,6 +2,7 @@ package com.example.quizmaster_backend.configuration;
 
 import com.example.quizmaster_backend.exception.AdminTokenExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,6 +18,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AdminTokenAuthFilter adminTokenAuthFilter;
     private final AdminTokenExceptionHandler adminTokenExceptionHandler;
+
+    @Value("${server.ssl.enabled}")
+    private boolean isSSLEnabled;
 
     /*======================================*
      * CONSTRUCTOR
@@ -68,11 +72,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // disable CSRF, has to be set to use admin token for authentication
         http.csrf().disable();
 
-        // force https
+        // force https if SSL is enabled
         // see: https://www.thomasvitale.com/https-spring-boot-ssl-certificate/
-        http.requiresChannel()
-                .anyRequest()
-                .requiresSecure();
+        if (this.isSSLEnabled) {
+            http.requiresChannel()
+                    .anyRequest()
+                    .requiresSecure();
+        }
 
         // do not use sessions
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
