@@ -1,20 +1,11 @@
 package com.example.quizmaster_backend.model.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.style.ToStringCreator;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import javax.validation.constraints.NotNull;
+
+import org.springframework.core.style.ToStringCreator;
+
 public class NewRandomQuizDto {
 
     /*======================================*
@@ -25,6 +16,19 @@ public class NewRandomQuizDto {
     private Integer questionCount;
 
     private List<Long> alreadyUsedQuestions;
+
+    /*======================================*
+     * CONSTRUCTOR
+     *======================================*/
+
+    public NewRandomQuizDto() {}
+
+    public NewRandomQuizDto(
+            @NotNull(message = "{NewRandomQuizDto.questionCount.NotNull}") Integer questionCount,
+            List<Long> alreadyUsedQuestions) {
+        this.questionCount = questionCount;
+        this.alreadyUsedQuestions = alreadyUsedQuestions;
+    }
 
     /*======================================*
      * STRING REPRESENTATION
@@ -40,5 +44,25 @@ public class NewRandomQuizDto {
         tsc.append("questionCount", questionCount);
 
         return tsc.toString();
+    }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public Integer getQuestionCount() {
+        return questionCount;
+    }
+
+    public void setQuestionCount(Integer questionCount) {
+        this.questionCount = questionCount;
+    }
+
+    public List<Long> getAlreadyUsedQuestions() {
+        return alreadyUsedQuestions;
+    }
+
+    public void setAlreadyUsedQuestions(List<Long> alreadyUsedQuestions) {
+        this.alreadyUsedQuestions = alreadyUsedQuestions;
     }
 }

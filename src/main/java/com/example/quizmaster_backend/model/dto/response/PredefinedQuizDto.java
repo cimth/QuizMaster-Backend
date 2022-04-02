@@ -1,18 +1,10 @@
 package com.example.quizmaster_backend.model.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.style.ToStringCreator;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import org.springframework.core.style.ToStringCreator;
+
 public class PredefinedQuizDto {
 
     /*======================================*
@@ -26,6 +18,21 @@ public class PredefinedQuizDto {
     private String quizName;
 
     private int questionCount;
+
+    /*======================================*
+     * CONSTRUCTORS
+     *======================================*/
+
+    public PredefinedQuizDto() {}
+
+    public PredefinedQuizDto(
+            @NotNull Long quizId, 
+            @NotEmpty String quizName, 
+            int questionCount) {
+        this.quizId = quizId;
+        this.quizName = quizName;
+        this.questionCount = questionCount;
+    }
 
     /*======================================*
      * STRING REPRESENTATION
@@ -43,5 +50,33 @@ public class PredefinedQuizDto {
                 .append("questionCount", questionCount);
 
         return tsc.toString();
+    }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public Long getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(Long quizId) {
+        this.quizId = quizId;
+    }
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public void setQuizName(String quizName) {
+        this.quizName = quizName;
+    }
+
+    public int getQuestionCount() {
+        return questionCount;
+    }
+
+    public void setQuestionCount(int questionCount) {
+        this.questionCount = questionCount;
     }
 }

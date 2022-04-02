@@ -83,13 +83,6 @@
             <!-- version already defined by Spring Boot -->
         </dependency>
 
-        <!-- lombok for easier Getters, Setters and Constructors -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <!-- version already defined by Spring Boot -->
-        </dependency>
-
         <!-- security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -108,13 +101,6 @@
                 <configuration>
                     <classifier>spring-boot</classifier>
                     <mainClass>com.example.quizmaster_backend.QuizmasterBackendApplication</mainClass>
-                    <!-- lombok is only needed for compilation -->
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
                 </configuration>
             </plugin>
         </plugins>

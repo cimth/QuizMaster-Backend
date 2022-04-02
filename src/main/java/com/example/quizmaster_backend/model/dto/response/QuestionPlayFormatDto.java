@@ -1,23 +1,17 @@
 package com.example.quizmaster_backend.model.dto.response;
 
-import com.example.quizmaster_backend.model.AnswerLetter;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.style.ToStringCreator;
+import java.util.Arrays;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import com.example.quizmaster_backend.model.AnswerLetter;
+
+import org.springframework.core.style.ToStringCreator;
+
 public class QuestionPlayFormatDto {
 
     /*======================================*
@@ -39,6 +33,24 @@ public class QuestionPlayFormatDto {
     private AnswerLetter correctAnswer;
 
     /*======================================*
+     * CONSTRUCTORS
+     *======================================*/
+
+    public QuestionPlayFormatDto() {}
+
+    public QuestionPlayFormatDto(
+            Long id, 
+            @NotNull String questionText,
+            @NotNull 
+            @Size(min = 4, max = 4) PossibleAnswerDto[] possibleAnswers, 
+            @NotNull AnswerLetter correctAnswer) {
+        this.id = id;
+        this.questionText = questionText;
+        this.possibleAnswers = possibleAnswers;
+        this.correctAnswer = correctAnswer;
+    }
+
+    /*======================================*
      * STRING REPRESENTATION
      *======================================*/
 
@@ -55,5 +67,41 @@ public class QuestionPlayFormatDto {
             .append("correctAnswer", correctAnswer.toString());
 
         return tsc.toString();
+    }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public PossibleAnswerDto[] getPossibleAnswers() {
+        return possibleAnswers;
+    }
+
+    public void setPossibleAnswers(PossibleAnswerDto[] possibleAnswers) {
+        this.possibleAnswers = possibleAnswers;
+    }
+
+    public AnswerLetter getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(AnswerLetter correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }

@@ -1,21 +1,13 @@
 package com.example.quizmaster_backend.model.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.style.ToStringCreator;
-
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.Arrays;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.springframework.core.style.ToStringCreator;
+
 public class NewOrUpdateQuestionDto {
 
     /*======================================*
@@ -33,6 +25,21 @@ public class NewOrUpdateQuestionDto {
     private List<@NotEmpty(message = "{NewOrUpdateQuestionDto.answers.NotEmpty}") String> wrongAnswers;
 
     /*======================================*
+     * CONSTRUCTOR
+     *======================================*/
+
+    public NewOrUpdateQuestionDto() {}
+
+    public NewOrUpdateQuestionDto(
+            @NotEmpty(message = "{NewOrUpdateQuestionDto.questionText.NotEmpty}") String questionText,
+            @NotEmpty(message = "{NewOrUpdateQuestionDto.answers.NotEmpty}") String correctAnswer,
+            @NotEmpty(message = "{NewOrUpdateQuestionDto.answers.NotEmpty}") @Size(min = 3, max = 3, message = "{NewOrUpdateQuestionDto.wrongAnswers.size}") List<@NotEmpty(message = "{NewOrUpdateQuestionDto.answers.NotEmpty}") String> wrongAnswers) {
+        this.questionText = questionText;
+        this.correctAnswer = correctAnswer;
+        this.wrongAnswers = wrongAnswers;
+    }
+
+    /*======================================*
      * STRING REPRESENTATION
      *======================================*/
 
@@ -48,5 +55,33 @@ public class NewOrUpdateQuestionDto {
                 .append("wrongAnswers", Arrays.toString(wrongAnswers.toArray()));
 
         return tsc.toString();
+    }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public List<String> getWrongAnswers() {
+        return wrongAnswers;
+    }
+
+    public void setWrongAnswers(List<String> wrongAnswers) {
+        this.wrongAnswers = wrongAnswers;
     }
 }

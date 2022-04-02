@@ -1,21 +1,9 @@
 package com.example.quizmaster_backend.model.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.core.style.ToStringCreator;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class NewPredefinedQuizDto {
 
     /*======================================*
@@ -24,6 +12,17 @@ public class NewPredefinedQuizDto {
 
     @NotEmpty(message = "{NewOrUpdatePredefinedQuizDto.quizName.NotEmpty}")
     private String quizName;
+
+    /*======================================*
+     * CONSTRUCTORS
+     *======================================*/
+
+    public NewPredefinedQuizDto() {}
+
+    public NewPredefinedQuizDto(
+            @NotEmpty(message = "{NewOrUpdatePredefinedQuizDto.quizName.NotEmpty}") String quizName) {
+        this.quizName = quizName;
+    }
 
     /*======================================*
      * STRING REPRESENTATION
@@ -39,5 +38,17 @@ public class NewPredefinedQuizDto {
         tsc.append("quizName", quizName);
 
         return tsc.toString();
+    }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public void setQuizName(String quizName) {
+        this.quizName = quizName;
     }
 }
