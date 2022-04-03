@@ -26,3 +26,7 @@ server:
 
   port: 8080  # can be changed, but also has to be changed inside the following class for correct HTTP to HTTPS
               # redirection: src/main/java/com/example/quizmaster_backend/configuration/ServerSSLConfig.java
+
+frontend-cors:
+  enabled: true
+  url: <frontend-url>

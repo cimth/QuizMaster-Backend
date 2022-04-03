@@ -1,20 +1,28 @@
 package com.example.quizmaster_backend.controller;
 
+import java.util.Locale;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import com.example.quizmaster_backend.exception.RestExceptionHandler;
 import com.example.quizmaster_backend.model.Question;
 import com.example.quizmaster_backend.model.dto.request.NewOrUpdateQuestionDto;
 import com.example.quizmaster_backend.model.dto.response.QuestionPlayFormatDto;
 import com.example.quizmaster_backend.service.QuestionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.util.Locale;
-
-@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/question")
 public class QuestionController {
