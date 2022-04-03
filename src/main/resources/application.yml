@@ -15,7 +15,7 @@ spring:
 
 server:
   ssl:
-    enabled: true
+    enabled: false
 
     # set up the certificate
     key-store: <path to the keystore, e.g. .p12 file>
@@ -24,5 +24,5 @@ server:
     key-alias: <key alias inside the keystore>
     key-password: <password of the key inside the keystore>
 
-  port: 8443  # can be changed, but also has to be changed inside the following class for correct HTTP to HTTPS
-              # redirection: src/main/java/com/example/quizmaster_backend/configuration/ServerConfig.java
+  port: 8080  # can be changed, but also has to be changed inside the following class for correct HTTP to HTTPS
+              # redirection: src/main/java/com/example/quizmaster_backend/configuration/ServerSSLConfig.java

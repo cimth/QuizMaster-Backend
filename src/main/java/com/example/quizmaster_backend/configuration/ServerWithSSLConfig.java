@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
     havingValue = "true",
     matchIfMissing = false
 )
-public class ServerConfig {
+public class ServerWithSSLConfig {
 
     /*======================================*
      * FIELDS
