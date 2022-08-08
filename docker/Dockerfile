@@ -17,11 +17,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN adduser --disabled-password $USER && \
     echo "$USER":"$USER_PASSWORD" | chpasswd
 
-# add sudo privileges
-RUN apt-get update && \
-    apt-get install -y sudo && \
-    adduser $USER sudo
-
 # run as non-root user in the following
 USER $USER
 WORKDIR /home/$USER
@@ -52,11 +47,11 @@ RUN apt-get update && \
 USER $USER
 
 RUN curl -s url -s "https://get.sdkman.io" | bash && \
-    source $USER_HOME/.sdkman/bin/sdkman-init.sh && \
+    source ~/.sdkman/bin/sdkman-init.sh && \
     sdk install java $JAVA_VERSION && \
     sdk install maven $MAVEN_VERSION && \
-    rm -rf $USER_HOME/.sdkman/archives/* && \
-    rm -rf $USER_HOME/.sdkman/tmp/*
+    rm -rf ~/.sdkman/archives/* && \
+    rm -rf ~/.sdkman/tmp/*
 
 ################################################################################
 
@@ -66,17 +61,9 @@ RUN curl -s url -s "https://get.sdkman.io" | bash && \
 
 FROM java-with-maven AS entrypoint
 
-# allow sudo commands from entrypoint and project script to be executed without a password
-USER root
-RUN echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/chown" > /etc/sudoers.d/$USER
-
-# copy entrypoint script with root privileges so that it cannot be changed but only executed inside the container
-COPY --chown=root:root ./entrypoint.sh /home/$USER/entrypoint.sh
-RUN chmod o+x entrypoint.sh
-
 # set container user and starting directory when entering the container interactively
 USER $USER
 WORKDIR /home/$USER/project
 
-# use the entrypoint script to have access on the mounted project files
+# run the mounted entrypoint script
 ENTRYPOINT ["/bin/bash", "-c", "/home/$USER/entrypoint.sh"]

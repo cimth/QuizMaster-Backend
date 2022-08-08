@@ -5,12 +5,13 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
+        USER_PASSWORD: docker-password
         JAVA_VERSION: 17.0.4-tem
         MAVEN_VERSION: 3.8.6
     environment:
       USER: docker
       SPRING_PROFILE: local
-      # environment variables to be used by the application-local.yml
+      # environment variables which are used inside `<project root>/src/main/resources/application-local.yml`
       BACKEND_DB_USER: dbuser
       BACKEND_DB_PASSWORD: dbpassword
       BACKEND_PORT: 8080
@@ -18,5 +19,11 @@ services:
     ports:
       - "8080:8080"
     volumes:
+      # project files without docker directory
       - ..:/home/docker/project
+      - /home/docker/project/docker
+      # entrypoint script
+      # => is mounted so that it can be updated without rebuilding the container
+      - ./entrypoint.sh:/home/docker/entrypoint.sh
+      # Maven repository so that the dependencies do not have to be downloaded each time the container is rebuild
       - ~/.m2:/home/docker/.m2

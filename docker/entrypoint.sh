@@ -1,18 +1,30 @@
 #!/bin/bash
 
 #######
-# CHOWN MOUNTED FILES
+# LOAD ENVIRONMENT VARIABLES FOR DEVELOPMENT TOOLS
 #######
 
-echo "Run 'chown' on mounted files ..."
-sudo chown -R $USER:$USER $USER_HOME/project
-sudo chown -R $USER:$USER $USER_HOME/.m2
+echo "Load environment variables ..."
+
+# load SDKMAN settings created in the Dockerfile into the current bash instance
+# => only with this command the environment variables for Java and Maven will be used
+source ~/.sdkman/bin/sdkman-init.sh
 
 #######
-# RUN MOUNTED PROJECT SCRIPT
+# GO TO PROJECT DIRECTORY
 #######
 
-# the project script is not used as entrypoint script to avoid rebuilding the container each time the project
-# script is updated
-echo "Run project script ..."
-/bin/bash -c ~/run_project.sh
+echo "Go to ~/project ..."
+cd ~/project
+
+#######
+# STARTUP COMMAND
+#######
+
+# just keep the container alive; the application has to be started interactively
+#echo "Keep container alive ..."
+#sleep infinity
+
+# alternative to sleep infinity: automatically build and run application
+echo "Start application ..."
+mvn spring-boot:run -Dspring-boot.run.profiles=${SPRING_PROFILE}
