@@ -1,18 +1,22 @@
 services:
-  devcontainer:
+  run:
     container_name: quizmaster-backend
-    image: maven:3.8.5-openjdk-17
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: Dockerfile
+      args:
+        JAVA_VERSION: 17.0.4-tem
+        MAVEN_VERSION: 3.8.6
     environment:
+      USER: docker
+      SPRING_PROFILE: local
+      # environment variables to be used by the application-local.yml
       BACKEND_DB_USER: dbuser
       BACKEND_DB_PASSWORD: dbpassword
       BACKEND_PORT: 8080
       FRONTEND_URL: http://localhost:4200
-      SPRING_PROFILE: local
-      APP_VERSION_FROM_POM_XML: 1.0.0
     ports:
       - "8080:8080"
     volumes:
-      - ..:/project
+      - ..:/home/docker/project
+      - ~/.m2:/home/docker/.m2
