@@ -1,19 +1,12 @@
 package com.example.quizmaster_backend.model.dto.response;
 
-import com.example.quizmaster_backend.model.AnswerLetter;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.style.ToStringCreator;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import com.example.quizmaster_backend.model.AnswerLetter;
+
+import org.springframework.core.style.ToStringCreator;
+
 public class PossibleAnswerDto {
 
     /*======================================*
@@ -26,6 +19,19 @@ public class PossibleAnswerDto {
     @NotNull
     @NotEmpty
     private String answerText;
+
+    /*======================================*
+     * CONSTRUCTORS
+     *======================================*/
+
+    public PossibleAnswerDto() {}
+
+    public PossibleAnswerDto(
+            @NotNull AnswerLetter answerLetter, 
+            @NotNull @NotEmpty String answerText) {
+        this.answerLetter = answerLetter;
+        this.answerText = answerText;
+    }
 
     /*======================================*
      * STRING REPRESENTATION
@@ -42,5 +48,25 @@ public class PossibleAnswerDto {
                 .append("answerText", answerText);
 
         return tsc.toString();
+    }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public AnswerLetter getAnswerLetter() {
+        return answerLetter;
+    }
+
+    public void setAnswerLetter(AnswerLetter answerLetter) {
+        this.answerLetter = answerLetter;
+    }
+
+    public String getAnswerText() {
+        return answerText;
+    }
+
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
     }
 }

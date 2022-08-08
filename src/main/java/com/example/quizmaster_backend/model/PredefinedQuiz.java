@@ -1,20 +1,16 @@
 package com.example.quizmaster_backend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.style.ToStringCreator;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "predefined_quiz")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PredefinedQuiz {
 
     /*======================================*
@@ -29,8 +25,10 @@ public class PredefinedQuiz {
     private String quizName;
 
     /*======================================*
-     * CUSTOM CONSTRUCTOR
+     * CONSTRUCTORS
      *======================================*/
+
+    public PredefinedQuiz() {}
 
     /**
      * Creates a predefined quiz with the given name and an automatically assigned ID.
@@ -56,5 +54,25 @@ public class PredefinedQuiz {
                 .append("quizName", quizName);
 
         return tsc.toString();
+    }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public void setQuizName(String quizName) {
+        this.quizName = quizName;
     }
 }

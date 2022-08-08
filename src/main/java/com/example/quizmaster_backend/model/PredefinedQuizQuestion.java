@@ -1,20 +1,16 @@
 package com.example.quizmaster_backend.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.core.style.ToStringCreator;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.core.style.ToStringCreator;
 
 @Entity
 @Table(name = "predefined_quiz_questions")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class PredefinedQuizQuestion {
 
     /*======================================*
@@ -32,8 +28,10 @@ public class PredefinedQuizQuestion {
     private Long questionId;
 
     /*======================================*
-     * CUSTOM CONSTRUCTOR
+     * CONSTRUCTORS
      *======================================*/
+
+    public PredefinedQuizQuestion() {}
 
     /**
      * Applies the given question to the given predefined quiz.
@@ -41,7 +39,9 @@ public class PredefinedQuizQuestion {
      * @param quizId the quiz to associate the question with
      * @param questionId the applied question
      */
-    public PredefinedQuizQuestion(@NotNull Long quizId, @NotNull Long questionId) {
+    public PredefinedQuizQuestion(
+            @NotNull Long quizId, 
+            @NotNull Long questionId) {
         this.quizId = quizId;
         this.questionId = questionId;
     }
@@ -63,4 +63,32 @@ public class PredefinedQuizQuestion {
 
         return tsc.toString();
     }
+
+    /*======================================*
+     * ACCESSORS
+     *======================================*/
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(Long quizId) {
+        this.quizId = quizId;
+    }
+
+    public Long getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }    
 }

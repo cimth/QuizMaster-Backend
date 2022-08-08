@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+
+    # overwrite the db attributes here or in local profile
+    url: jdbc:h2:./database/quizmaster_db
+    username: ${BACKEND_DB_USER}
+    password: ${BACKEND_DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.H2Dialect
+
+server:
+  ssl:
+    enabled: false
+
+  port: ${BACKEND_PORT}
+
+frontend-cors:
+  enabled: true
+  url: ${FRONTEND_URL}
