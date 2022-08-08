@@ -21,6 +21,28 @@ The frontend, created with Angular, is located within the following repository:
 https://github.com/cimth/quizmaster_frontend
 
 
+## Included dependencies
+
+| Dependency                   | Version                |
+|------------------------------|------------------------|
+| Java                         | 17                     |
+| Spring Boot                  | 2.7.2                  |
+| Spring Boot Starter Data JPA | Defined by Spring Boot |
+| Spring Boot Starter Web      | Defined by Spring Boot |
+| Spring Boot Dev Tools        | Defined by Spring Boot |
+| Spring Boot Starter Test     | Defined by Spring Boot |
+| Spring Boot Starter Security | Defined by Spring Boot |
+| Flyway                       | Defined by Spring Boot |
+| H2 Database                  | Defined by Spring Boot |
+| Hibernate Validator          | Defined by Spring Boot |
+| Spring Boot Maven Plugin     | 2.7.2                  |
+| Versions Maven Plugin        | 2.9.0                  |
+
+**Note:**
+* The versions defined by Spring Boot are used for best compatability and for easier maintenance.
+  So, only the Spring Boot versions (and the parent version) has to be adjusted.
+* For more detailed information consider the [pom.xml](pom.xml)
+
 ## How to run the QuizMaster backend in Docker
 
 You can use the Docker setup provided inside the [docker](docker) directory.
