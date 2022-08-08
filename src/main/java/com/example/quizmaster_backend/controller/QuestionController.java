@@ -72,6 +72,18 @@ public class QuestionController {
      *======================================*/
 
     /**
+     * GET: /count
+     * <br />
+     * Returns the count of all questions inside the database.
+     *
+     * @return the count of all questions inside the database
+     */
+    @GetMapping("/count")
+    public long getCountOfAllQuestions() {
+        return questionService.getCountOfAllQuestions();
+    }
+
+    /**
      * GET: /question
      * <br />
      * Returns all questions of the database in raw format.

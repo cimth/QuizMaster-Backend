@@ -66,6 +66,15 @@ public class QuestionService {
      *======================================*/
 
     /**
+     * Returns the count of all questions inside the database.
+     *
+     * @return the count of all questions inside the database
+     */
+    public long getCountOfAllQuestions() {
+        return questionRepository.count();
+    }
+
+    /**
      * Returns all questions of the database.
      * <br />
      * Does not return QuestionDto objects but Question objects since this request is not supposed to be
